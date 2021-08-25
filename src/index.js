@@ -10,10 +10,21 @@ const {
 } = require("./utilities/constants");
 
 const express = require("express");
-
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+const Oauth = require("client-oauth2");
+const github = new Oauth({
+  clientId: __CLIENT_ID__,
+  clientSecret: __CLIENT_SECRET__,
+  accessTokenUri: "https://github.com/login/oauth/access_token",
+  authorizationUri: "https://github.com/login/oauth/authorize",
+  redirectUri: "http://localhost:3001/login/github/callback",
+  scopes: ["user:id"],
+});
+
+/******************************************************************************/
 
 const login = (req, res) => {};
 
