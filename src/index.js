@@ -11,11 +11,17 @@ const {
 const express = require("express");
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
   res.json({ mes: "sup" });
 });
 
-app.listen(__EXPRESS_PORT__, ()=>{
-    console.log(`running on port ${__EXPRESS_PORT__}`)
+app.post("/", (req,res)=>{
+    res.send(req.body)
 })
+
+app.listen(__EXPRESS_PORT__, () => {
+  console.log(`running on port ${__EXPRESS_PORT__}`);
+});
