@@ -18,6 +18,14 @@ const login = (req, res) => {
   res.redirect(url);
 };
 
+const redirectWithCookie = (res, token) => {
+  res.cookie("accessToken", token, {
+    maxAge: 300000,
+    httpOnly: true,
+  });
+  res.redirect("http://localhost:3001/");
+};
+
 const loginCallback = (req, res) => {
   github.code.getToken(req.originalUrl).then((user) => {
     fetch("https://api.github.com/user", {
@@ -38,9 +46,7 @@ const loginCallback = (req, res) => {
               github_id: githubUser.id,
               access_token: user.accessToken,
             }).then(() => {
-              res.json({
-                accessToken: user.accessToken,
-              });
+              redirectWithCookie(res, user.accessToken);
             });
           } else {
             db.Account.update(
@@ -51,9 +57,7 @@ const loginCallback = (req, res) => {
                 },
               }
             ).then(() => {
-              res.json({
-                accessToken: user.accessToken,
-              });
+              redirectWithCookie(res, user.accessToken);
             });
           }
         });
