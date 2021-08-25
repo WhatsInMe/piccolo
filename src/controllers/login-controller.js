@@ -2,6 +2,8 @@ const { __CLIENT_ID__, __CLIENT_SECRET__ } = require("../utilities/constants");
 const Oauth = require("client-oauth2");
 const fetch = require("node-fetch");
 
+const db = require("../database");
+
 const github = new Oauth({
   clientId: __CLIENT_ID__,
   clientSecret: __CLIENT_SECRET__,
@@ -27,10 +29,20 @@ const getGithubUser = async (token) => {
 };
 
 const loginCallback = async (req, res) => {
+  // await db.Account.create({ github_id: 222 });
   await github.code.getToken(req.originalUrl).then((user) => {
-    console.log(user);
-    getGithubUser(user.accessToken).then((githubUser) => {
+    // console.log(user);
+    getGithubUser(user.accessToken).then(async (githubUser) => {
       console.log(githubUser);
+      await db.Account.findAll({
+        where: {
+          github_id: githubUser.id,
+        },
+      }).then(([account]) => {
+        console.log(account.github_id);
+        console.log(account.github_id);
+        console.log(account.github_id);
+      });
       res.json(githubUser);
     });
   });
