@@ -1,14 +1,6 @@
 const { __EXPRESS_PORT__ } = require("./utilities/constants");
 const { login, loginCallback } = require("./controllers/login-controller");
 
-// const connection = require("./utilities/connection");
-// try {
-//   connection.authenticate();
-//   console.log("Connection has been established successfully.");
-// } catch (error) {
-//   console.error("Unable to connect to the database:", error);
-// }
-
 const db = require("./database");
 db.sequelize.sync({ force: true });
 
