@@ -20,15 +20,23 @@ const github = new Oauth({
   clientSecret: __CLIENT_SECRET__,
   accessTokenUri: "https://github.com/login/oauth/access_token",
   authorizationUri: "https://github.com/login/oauth/authorize",
-  redirectUri: "http://localhost:3001/login/github/callback",
+  redirectUri: "http://localhost:3001/callback",
   scopes: ["user:id"],
 });
 
 /******************************************************************************/
 
-const login = (req, res) => {};
+const login = (req, res) => {
+  const url = github.code.getUri();
+  console.log(url); //debug
+  res.redirect(url);
+};
+app.get("/login", login);
 
-app.get("/login/github", login);
+const callback = (req, res) => {};
+app.get("/callback", callback);
+
+/******************************************************************************/
 
 /**
  * debug
