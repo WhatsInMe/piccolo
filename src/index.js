@@ -2,6 +2,7 @@ const { __EXPRESS_PORT__ } = require("./utilities/constants");
 const { login, loginCallback } = require("./controllers/login-controller");
 
 const db = require("./database");
+const cors = require("cors");
 const express = require("express");
 
 const main = async () => {
@@ -18,9 +19,9 @@ const main = async () => {
    */
   app.get("/login", login);
   app.get("/login/callback", loginCallback);
-  app.get("/", (req,res)=>{
-    res.send("<h1>sup</h1>")
-  })
+  app.get("/", (req, res) => {
+    res.send("<h1>hello</h1>");
+  });
 
   app.listen(__EXPRESS_PORT__, () => {
     console.log(`running on port ${__EXPRESS_PORT__}`);
