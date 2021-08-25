@@ -33,8 +33,12 @@ const login = (req, res) => {
 };
 app.get("/login", login);
 
-const callback = (req, res) => {};
-app.get("/callback", callback);
+const githubCallback = (req, res) => {
+  github.code.getToken(req.originalUrl).then((user) => {
+    console.log(user);
+  });
+};
+app.get("/callback", githubCallback);
 
 /******************************************************************************/
 
