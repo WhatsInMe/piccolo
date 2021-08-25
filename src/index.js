@@ -1,21 +1,21 @@
 const { __EXPRESS_PORT__ } = require("./utilities/constants");
 const { login, loginCallback } = require("./controllers/login-controller");
 
+const db = require("./database");
+const express = require("express");
+
 const main = async () => {
-  const db = require("./database");
   await db.sequelize.sync({ force: true });
-
-  const fuck = db.Account.build({ github_id: 1});
-  await fuck.save();
-
-  const express = require("express");
+  await db.Account.create({ github_id: 1, access_token: 1 });
+  await db.Account.create({ github_id: 2, access_token: 2 });
 
   const app = express();
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
 
-  /******************************************************************************/
-
+  /**
+   * routes
+   */
   app.get("/login", login);
   app.get("/login/callback", loginCallback);
 
