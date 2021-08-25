@@ -33,15 +33,29 @@ const loginCallback = async (req, res) => {
   await github.code.getToken(req.originalUrl).then((user) => {
     // console.log(user);
     getGithubUser(user.accessToken).then(async (githubUser) => {
-      console.log(githubUser);
+      // console.log(githubUser);
       await db.Account.findAll({
         where: {
           github_id: githubUser.id,
         },
-      }).then(([account]) => {
-        console.log(account.github_id);
-        console.log(account.github_id);
-        console.log(account.github_id);
+      }).then(async ([account]) => {
+        if (!account) {
+          await db.Account.create({
+            github_id: githubUser.id,
+            access_token: user.accessToken,
+          });
+        } else {
+          // account exists, update token
+          await db.Account.update(
+            { access_token: user.accessToken },
+            {
+              where: {
+                github_id: githubUser.id,
+              },
+            }
+          );
+          console.log("ree");
+        }
       });
       res.json(githubUser);
     });

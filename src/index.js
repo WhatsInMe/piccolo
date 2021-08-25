@@ -6,7 +6,7 @@ const express = require("express");
 
 const main = async () => {
   await db.sequelize.sync({ force: true });
-  await db.Account.create({ github_id: 55699197});
+  // await db.Account.create({ github_id: 55699197});
   // await db.Account.create({ github_id: 2, access_token: 2 });
 
   const app = express();
