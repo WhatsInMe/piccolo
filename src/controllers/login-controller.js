@@ -17,19 +17,22 @@ const login = (req, res) => {
   res.redirect(url);
 };
 
+const getGithubUser = async (token) => {
+  return await fetch("https://api.github.com/user", {
+    method: "get",
+    headers: {
+      Authorization: `token ${token}`,
+    },
+  }).then((res) => res.json());
+};
+
 const loginCallback = async (req, res) => {
   await github.code.getToken(req.originalUrl).then((user) => {
-    fetch("https://api.github.com/user", {
-      method: "get",
-      headers: {
-        Authorization: `token ${user.accessToken}`,
-      },
-    })
-      .then((res_) => res_.json())
-      .then((json) => {
-        console.log(json);
-        res.json(json);
-      });
+    console.log(user);
+    getGithubUser(user.accessToken).then((githubUser) => {
+      console.log(githubUser);
+      res.json(githubUser);
+    });
   });
 };
 
