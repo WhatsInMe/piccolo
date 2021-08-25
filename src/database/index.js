@@ -6,8 +6,7 @@ const {
   __DB_USER__,
 } = require("../utilities/constants");
 
-const { Sequelize } = require("sequelize");
-
+const { Sequelize, Model, DataTypes } = require("sequelize");
 const sequelize = new Sequelize(__DB_NAME__, __DB_USER__, __DB_PASS__, {
   host: __DB_HOST__,
   port: __DB_PORT__,
@@ -15,10 +14,19 @@ const sequelize = new Sequelize(__DB_NAME__, __DB_USER__, __DB_PASS__, {
   //   models: [Account, Session],
 });
 
-const db = {};
-db.Sequelize = Sequelize;
-db.sequelize = sequelize;
+const Account = sequelize.define("account", {
+  github_id: {
+    type: Sequelize.INTEGER,
+  },
+  access_token: {
+    type: Sequelize.STRING,
+  },
+});
 
-db.accounts = require("./models/account")(sequelize, Sequelize);
+const db = {
+  Sequelize: Sequelize,
+  sequelize: sequelize,
+  Account: Account,
+};
 
 module.exports = db;
