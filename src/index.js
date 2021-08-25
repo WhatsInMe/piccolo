@@ -11,6 +11,7 @@ const main = async () => {
   // await db.Account.create({ github_id: 2, access_token: 2 });
 
   const app = express();
+  app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
 
