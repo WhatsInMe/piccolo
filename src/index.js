@@ -22,7 +22,7 @@ const github = new Oauth({
   clientSecret: __CLIENT_SECRET__,
   accessTokenUri: "https://github.com/login/oauth/access_token",
   authorizationUri: "https://github.com/login/oauth/authorize",
-  redirectUri: "http://localhost:3001/callback",
+  redirectUri: "http://localhost:3001/login/callback",
   scopes: ["user:id"],
 });
 
@@ -35,7 +35,7 @@ const login = (req, res) => {
 };
 app.get("/login", login);
 
-const githubCallback = async (req, res) => {
+const loginCallback = async (req, res) => {
   await github.code.getToken(req.originalUrl).then((user) => {
     fetch("https://api.github.com/user", {
       method: "get",
@@ -50,7 +50,7 @@ const githubCallback = async (req, res) => {
       });
   });
 };
-app.get("/callback", githubCallback);
+app.get("/login/callback", loginCallback);
 
 /******************************************************************************/
 
