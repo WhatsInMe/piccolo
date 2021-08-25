@@ -1,6 +1,4 @@
 const {
-  __CLIENT_ID__,
-  __CLIENT_SECRET__,
   __DB_HOST__,
   __DB_NAME__,
   __DB_PASS__,
@@ -9,47 +7,17 @@ const {
   __EXPRESS_PORT__,
 } = require("./utilities/constants");
 
+const { login, loginCallback } = require("./controllers/login-controller");
+
 const express = require("express");
-const Oauth = require("client-oauth2");
-const fetch = require("node-fetch");
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const github = new Oauth({
-  clientId: __CLIENT_ID__,
-  clientSecret: __CLIENT_SECRET__,
-  accessTokenUri: "https://github.com/login/oauth/access_token",
-  authorizationUri: "https://github.com/login/oauth/authorize",
-  redirectUri: "http://localhost:3001/login/callback",
-  scopes: ["user:id"],
-});
-
 /******************************************************************************/
 
-const login = (req, res) => {
-  const url = github.code.getUri();
-  console.log(url); //debug
-  res.redirect(url);
-};
 app.get("/login", login);
-
-const loginCallback = async (req, res) => {
-  await github.code.getToken(req.originalUrl).then((user) => {
-    fetch("https://api.github.com/user", {
-      method: "get",
-      headers: {
-        Authorization: `token ${user.accessToken}`,
-      },
-    })
-      .then((res_) => res_.json())
-      .then((json) => {
-        console.log(json);
-        res.json(json);
-      });
-  });
-};
 app.get("/login/callback", loginCallback);
 
 /******************************************************************************/
