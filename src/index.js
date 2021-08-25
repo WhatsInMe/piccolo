@@ -1,13 +1,13 @@
+const { __EXPRESS_PORT__ } = require("./utilities/constants");
 const { login, loginCallback } = require("./controllers/login-controller");
 
-const {
-  __DB_HOST__,
-  __DB_NAME__,
-  __DB_PASS__,
-  __DB_PORT__,
-  __DB_USER__,
-  __EXPRESS_PORT__,
-} = require("./utilities/constants");
+const connection = require("./utilities/connection");
+try {
+  connection.authenticate();
+  console.log("Connection has been established successfully.");
+} catch (error) {
+  console.error("Unable to connect to the database:", error);
+}
 
 const express = require("express");
 
