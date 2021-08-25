@@ -18,6 +18,9 @@ const main = async () => {
    */
   app.get("/login", login);
   app.get("/login/callback", loginCallback);
+  app.get("/", (req,res)=>{
+    res.send("<h1>sup</h1>")
+  })
 
   app.listen(__EXPRESS_PORT__, () => {
     console.log(`running on port ${__EXPRESS_PORT__}`);
