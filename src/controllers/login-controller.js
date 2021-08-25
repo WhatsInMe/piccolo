@@ -1,7 +1,11 @@
-const { __CLIENT_ID__, __CLIENT_SECRET__ } = require("../utilities/constants");
 const Oauth = require("client-oauth2");
 const fetch = require("node-fetch");
 
+const {
+  NODE_ENV,
+  __CLIENT_ID__,
+  __CLIENT_SECRET__,
+} = require("../utilities/constants");
 const db = require("../database");
 
 const github = new Oauth({
@@ -21,7 +25,7 @@ const login = (req, res) => {
 const redirectWithCookie = (res, token) => {
   res.cookie("accessToken", token, {
     maxAge: 300000,
-    httpOnly: true,
+    httpOnly: NODE_ENV === "prod" ? true : false,
   });
   res.redirect("http://localhost:3001/");
 };
