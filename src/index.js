@@ -10,11 +10,13 @@ const {
 } = require("./utilities/constants");
 
 const express = require("express");
+const Oauth = require("client-oauth2");
+const fetch = require("node-fetch");
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const Oauth = require("client-oauth2");
 const github = new Oauth({
   clientId: __CLIENT_ID__,
   clientSecret: __CLIENT_SECRET__,
@@ -33,9 +35,19 @@ const login = (req, res) => {
 };
 app.get("/login", login);
 
-const githubCallback = (req, res) => {
-  github.code.getToken(req.originalUrl).then((user) => {
-    console.log(user);
+const githubCallback = async (req, res) => {
+  await github.code.getToken(req.originalUrl).then((user) => {
+    fetch("https://api.github.com/user", {
+      method: "get",
+      headers: {
+        Authorization: `token ${user.accessToken}`,
+      },
+    })
+      .then((res_) => res_.json())
+      .then((json) => {
+        console.log(json);
+        res.json(json);
+      });
   });
 };
 app.get("/callback", githubCallback);
