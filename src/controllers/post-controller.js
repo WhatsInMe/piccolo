@@ -6,10 +6,17 @@ const getPosts = async (req, res) => {
     where: {
       access_token: accessToken,
     },
-  }).then(([account]) => {
-    console.log(account.github_id);
-  });
-  res.json({ mes: accessToken });
+  })
+    .then(([account]) => {
+      console.log(account.github_id);
+      res.json({
+        github_id: account.github_id,
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.sendStatus(500);
+    });
 };
 
 module.exports = { getPosts };
