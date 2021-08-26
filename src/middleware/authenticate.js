@@ -5,6 +5,7 @@ const authenticate = (req, res, next) => {
     ? req.headers["authorization"].split(" ")[1]
     : undefined;
   if (!accessToken) {
+    console.log("access denied");
     res.sendStatus(403);
   } else {
     db.Account.findAll({
@@ -14,13 +15,15 @@ const authenticate = (req, res, next) => {
     })
       .then(([account]) => {
         if (!account) {
+          console.log("access denied");
           res.sendStatus(403);
         } else {
-          console.log(account);
+          console.log("access granted");
           next();
         }
       })
       .catch((error) => {
+        console.log("access denied");
         console.error(error);
         res.sendStatus(403);
       });
