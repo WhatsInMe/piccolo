@@ -2,6 +2,7 @@ const { __EXPRESS_PORT__ } = require("./utilities/constants");
 const { login, loginCallback } = require("./controllers/login-controller");
 const { getPosts } = require("./controllers/post-controller");
 const authenticate = require("./middleware/authenticate");
+const seed = require("./utilities/seed");
 
 const db = require("./database");
 const cors = require("cors");
@@ -14,38 +15,9 @@ const main = async () => {
     process.exit(0);
   });
 
-  await db.sequelize.sync({ force: true });
-
-  /**
-   * seed
-   */
-  await db.Account.create({
-    github_id: 33,
-    access_token: "test1",
-  });
-  await db.Account.create({
-    github_id: 69,
-    access_token: "test2",
-  });
-  await db.Post.create({
-    title: "test title",
-    text: "test text",
-    accountId: 1,
-  });
-  await db.Post.create({
-    title: "test title",
-    text: "test text",
-    accountId: 1,
-  });
-  await db.Post.create({
-    title: "test title",
-    text: "test text",
-    accountId: 2,
-  });
-  await db.Post.create({
-    title: "test title",
-    text: "test text",
-    accountId: 2,
+  await db.sequelize.sync({ force: true }).then(() => {
+    console.log("migration complete");
+    seed();
   });
 
   const app = express();
