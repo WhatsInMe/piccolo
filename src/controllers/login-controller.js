@@ -41,11 +41,11 @@ const loginCallback = (req, res) => {
     })
       .then((fetchResponse) => fetchResponse.json())
       .then((githubUser) => {
-        db.Account.findAll({
+        db.Account.findOne({
           where: {
             github_id: githubUser.id,
           },
-        }).then(([account]) => {
+        }).then((account) => {
           if (!account) {
             db.Account.create({
               github_id: githubUser.id,

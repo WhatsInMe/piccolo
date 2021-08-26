@@ -8,12 +8,12 @@ const authenticate = (req, res, next) => {
     console.log("access denied");
     res.sendStatus(403);
   } else {
-    db.Account.findAll({
+    db.Account.findOne({
       where: {
         access_token: accessToken,
       },
     })
-      .then(([account]) => {
+      .then((account) => {
         if (!account) {
           console.log("access denied");
           res.sendStatus(403);
