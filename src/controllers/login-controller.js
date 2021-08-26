@@ -3,9 +3,9 @@ const fetch = require("node-fetch");
 
 const {
   NODE_ENV,
+  __APP__,
   __CLIENT_ID__,
   __CLIENT_SECRET__,
-  __REDIRECT_URL__,
 } = require("../utilities/constants");
 const db = require("../database");
 
@@ -28,7 +28,7 @@ const redirectWithCookie = (res, token) => {
     maxAge: 300000,
     httpOnly: NODE_ENV === "prod" ? true : false,
   });
-  res.redirect(__REDIRECT_URL__ + "/");
+  res.redirect(__APP__ + "/");
 };
 
 const loginCallback = (req, res) => {

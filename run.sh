@@ -11,6 +11,7 @@ prod() {
         docker build -t yw/piccolo:dev . || exit 1
         docker rmi -f $(docker images -f "dangling=true" -q)
         docker run \
+                -e APP=${APP} \
                 -e EXPRESS_PORT=${EXPRESS_PORT} \
                 -e GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID} \
                 -e GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET} \
@@ -20,7 +21,6 @@ prod() {
                 -e POSTGRES_PASS=${POSTGRES_PASS} \
                 -e POSTGRES_PORT=${POSTGRES_PORT} \
                 -e POSTGRES_USER=${POSTGRES_USER} \
-                -e REDIRECT_URL=${REDIRECT_URL} \
                 --rm \
                 --name piccolo \
                 -p ${HOST_PORT}:${EXPRESS_PORT} \
