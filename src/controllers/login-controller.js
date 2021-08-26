@@ -2,7 +2,6 @@ const Oauth = require("client-oauth2");
 const fetch = require("node-fetch");
 
 const {
-  NODE_ENV,
   __APP__,
   __CLIENT_ID__,
   __CLIENT_SECRET__,
@@ -23,16 +22,18 @@ const login = (req, res) => {
   res.redirect(url);
 };
 
+const loginStatus = (req, res) => {
+  res.json({ mes: "status" });
+};
+
 const redirectWithCookie = (res, token) => {
   res.cookie("accessToken", token, {
     maxAge: 300000,
-    // httpOnly: NODE_ENV === "prod" ? true : false,
-    httpOnly: false
+    httpOnly: false,
   });
   res.cookie("secretMessage", "John3-16", {
     maxAge: 300000,
-    // httpOnly: NODE_ENV === "prod" ? true : false,
-    httpOnly: false
+    httpOnly: false,
   });
   res.redirect(__APP__ + "/");
 };
@@ -79,4 +80,5 @@ const loginCallback = (req, res) => {
 module.exports = {
   login,
   loginCallback,
+  loginStatus,
 };

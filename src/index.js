@@ -1,8 +1,12 @@
 const { __EXPRESS_PORT__ } = require("./utilities/constants");
-const { login, loginCallback } = require("./controllers/login-controller");
 const { getPosts } = require("./controllers/post-controller");
 const authenticate = require("./middleware/authenticate");
 const seed = require("./utilities/seed");
+const {
+  login,
+  loginCallback,
+  loginStatus,
+} = require("./controllers/login-controller");
 
 const db = require("./database");
 const cors = require("cors");
@@ -30,6 +34,7 @@ const main = async () => {
    */
   app.get("/login", login);
   app.get("/login/callback", loginCallback);
+  app.get("/login/status", loginStatus);
   app.get("/posts", authenticate, getPosts);
 
   app.get("/", (req, res) => {
