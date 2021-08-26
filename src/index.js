@@ -5,13 +5,19 @@ const db = require("./database");
 const cors = require("cors");
 const express = require("express");
 
+const process = require("process");
+process.on("SIGINT", () => {
+  console.info("Interrupted");
+  process.exit(0);
+});
+
 const main = async () => {
   await db.sequelize.sync({ force: true });
   // await db.Account.create({ github_id: 55699197});
   // await db.Account.create({ github_id: 2, access_token: 2 });
 
   const app = express();
-  app.use(cors())
+  app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
 
