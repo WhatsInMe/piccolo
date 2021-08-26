@@ -16,27 +16,27 @@ const seed = async () => {
   await db.Post.create({
     title: "test title",
     text: "test text",
-    accountId: 1,
+    account_id: 1,
   });
   await db.Post.create({
     title: "test title",
     text: "test text",
-    accountId: 1,
+    account_id: 1,
   });
   await db.Post.create({
     title: "test title",
     text: "test text",
-    accountId: 1,
+    account_id: 1,
   });
   await db.Post.create({
     title: "test title",
     text: "test text",
-    accountId: 2,
+    account_id: 2,
   });
   await db.Post.create({
     title: "test title",
     text: "test text",
-    accountId: 2,
+    account_id: 2,
   });
   console.log("seeding complete")
 };

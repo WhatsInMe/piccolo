@@ -12,7 +12,7 @@ const getPosts = (req, res) => {
       console.log(account.id);
       db.Post.findAll({
         where: {
-          accountId: account.id,
+          account_id: account.id,
         },
       }).then((posts) => {
         console.log(posts);

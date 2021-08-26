@@ -15,7 +15,9 @@ const sequelize = new Sequelize(__DB_NAME__, __DB_USER__, __DB_PASS__, {
 
 const Account = require("./models/account")(sequelize, Sequelize);
 const Post = require("./models/post")(sequelize, Sequelize);
-Account.hasMany(Post);
+Account.hasMany(Post, {
+  foreignKey: "account_id",
+});
 
 const database = {};
 
