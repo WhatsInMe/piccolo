@@ -1,9 +1,9 @@
 const db = require("../database");
 
-const getPosts = async (req, res) => {
+const getPosts = (req, res) => {
   // should get this through api or middleware
   const accessToken = req.headers["authorization"].split(" ")[1];
-  await db.Account.findAll({
+  db.Account.findAll({
     where: {
       access_token: accessToken,
     },
