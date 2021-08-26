@@ -8,9 +8,9 @@ const getPosts = async (req, res) => {
     },
   })
     .then(([account]) => {
-      console.log(account.github_id);
+      console.log(account.id);
       res.json({
-        github_id: account.github_id,
+        account_id: account.id,
       });
     })
     .catch((error) => {
