@@ -13,11 +13,15 @@ const sequelize = new Sequelize(__DB_NAME__, __DB_USER__, __DB_PASS__, {
   dialect: "postgres",
 });
 
-const database = {
-  Sequelize: Sequelize,
-  sequelize: sequelize,
-  Account: require("./models/account")(sequelize, Sequelize),
-  Post: require("./models/post")(sequelize, Sequelize),
-};
+const Account = require("./models/account")(sequelize, Sequelize);
+const Post = require("./models/post")(sequelize, Sequelize);
+Account.hasMany(Post);
+
+const database = {};
+
+database.Sequelize = Sequelize;
+database.sequelize = sequelize;
+database.Account = Account;
+database.Post = Post;
 
 module.exports = database;
