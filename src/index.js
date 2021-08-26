@@ -1,7 +1,7 @@
-const { __EXPRESS_PORT__ } = require("./utilities/constants");
-const { getPosts } = require("./controllers/post-controller");
 const authenticate = require("./middleware/authenticate");
 const seed = require("./utilities/seed");
+const { __EXPRESS_PORT__ } = require("./utilities/constants");
+const { getPosts } = require("./controllers/post-controller");
 const {
   login,
   loginCallback,
