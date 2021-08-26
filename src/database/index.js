@@ -17,6 +17,7 @@ const database = {
   Sequelize: Sequelize,
   sequelize: sequelize,
   Account: require("./models/account")(sequelize, Sequelize),
+  Post: require("./models/post")(sequelize, Sequelize),
 };
 
 module.exports = database;
