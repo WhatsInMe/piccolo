@@ -15,6 +15,10 @@ const main = async () => {
   });
 
   await db.sequelize.sync({ force: true });
+  await db.Account.create({
+    github_id: 33,
+    access_token: "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",
+  });
 
   const app = express();
   app.use(cors());
