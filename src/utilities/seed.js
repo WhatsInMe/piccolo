@@ -9,6 +9,15 @@ const seed = async () => {
     github_id: 69,
     access_token: "test2",
   });
+  await db.Account.create({
+    github_id: 420,
+    access_token: "test3",
+  });
+  await db.Post.create({
+    title: "test title",
+    text: "test text",
+    accountId: 1,
+  });
   await db.Post.create({
     title: "test title",
     text: "test text",
