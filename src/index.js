@@ -26,7 +26,7 @@ const main = async () => {
    */
   app.get("/login", login);
   app.get("/login/callback", loginCallback);
-  app.get("/posts",authenticate, getPosts);
+  app.get("/posts", authenticate, getPosts);
 
   app.get("/", (req, res) => {
     res.send("<h1>hello</h1>");
