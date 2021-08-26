@@ -15,9 +15,37 @@ const main = async () => {
   });
 
   await db.sequelize.sync({ force: true });
+
+  /**
+   * seed
+   */
   await db.Account.create({
     github_id: 33,
-    access_token: "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",
+    access_token: "test1",
+  });
+  await db.Account.create({
+    github_id: 69,
+    access_token: "test2",
+  });
+  await db.Post.create({
+    title: "test title",
+    text: "test text",
+    accountId: 1,
+  });
+  await db.Post.create({
+    title: "test title",
+    text: "test text",
+    accountId: 1,
+  });
+  await db.Post.create({
+    title: "test title",
+    text: "test text",
+    accountId: 2,
+  });
+  await db.Post.create({
+    title: "test title",
+    text: "test text",
+    accountId: 2,
   });
 
   const app = express();
