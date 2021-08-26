@@ -1,21 +1,13 @@
 const db = require("../database");
 
 const getPosts = (req, res) => {
-  // should get this through api or middleware
-  const accessToken = req.headers["authorization"].split(" ")[1];
-  db.Account.findAll({
-    where: {
-      access_token: accessToken,
-    },
-  })
-    .then(([account]) => {
-      console.log(account.id);
+  db.Account.findByPk(req.account.id)
+    .then((account) => {
       db.Post.findAll({
         where: {
           account_id: account.id,
         },
       }).then((posts) => {
-        console.log(posts);
         res.json(posts);
       });
     })

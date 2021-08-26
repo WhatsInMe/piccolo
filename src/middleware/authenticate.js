@@ -19,6 +19,7 @@ const authenticate = (req, res, next) => {
           res.sendStatus(403);
         } else {
           console.log("access granted");
+          req.account = account;
           next();
         }
       })
