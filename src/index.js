@@ -34,7 +34,7 @@ const main = async () => {
    */
   app.get("/login", login);
   app.get("/login/callback", loginCallback);
-  app.get("/login/status", loginStatus);
+  app.get("/login/status", authenticate, loginStatus);
   app.get("/posts", authenticate, getPosts);
 
   app.get("/", (req, res) => {

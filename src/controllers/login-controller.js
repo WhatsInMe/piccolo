@@ -23,7 +23,7 @@ const login = (req, res) => {
 };
 
 const loginStatus = (req, res) => {
-  res.json({ mes: "status" });
+  res.sendStatus(200);
 };
 
 const redirectWithCookie = (res, token) => {
