@@ -1,5 +1,5 @@
 const getPosts = (req, res) => {
-  res.json({mes:"test"});
+  res.json({ mes: "controller" });
 };
 
 module.exports = { getPosts };

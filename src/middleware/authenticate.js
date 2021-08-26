@@ -1,9 +1,7 @@
 const authenticate = (req, res, next) => {
-  if (true) {
-    res.json({mes:"middleware"});
-  } else {
-    next();
-  }
+  const accessToken = req.headers["authorization"].split(" ")[1];
+  console.log(accessToken);
+  next();
 };
 
 module.exports = authenticate;
