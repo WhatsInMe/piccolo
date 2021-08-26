@@ -26,7 +26,13 @@ const login = (req, res) => {
 const redirectWithCookie = (res, token) => {
   res.cookie("accessToken", token, {
     maxAge: 300000,
-    httpOnly: NODE_ENV === "prod" ? true : false,
+    // httpOnly: NODE_ENV === "prod" ? true : false,
+    httpOnly: false
+  });
+  res.cookie("secretMessage", "John3-16", {
+    maxAge: 300000,
+    // httpOnly: NODE_ENV === "prod" ? true : false,
+    httpOnly: false
   });
   res.redirect(__APP__ + "/");
 };
