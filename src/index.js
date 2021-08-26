@@ -1,21 +1,20 @@
 const { __EXPRESS_PORT__ } = require("./utilities/constants");
 const { login, loginCallback } = require("./controllers/login-controller");
 const { getPosts } = require("./controllers/post-controller");
+const authenticate = require("./middleware/authenticate");
 
 const db = require("./database");
 const cors = require("cors");
 const express = require("express");
 
-const process = require("process");
-process.on("SIGINT", () => {
-  console.info("Interrupted");
-  process.exit(0);
-});
-
 const main = async () => {
+  const process = require("process");
+  process.on("SIGINT", () => {
+    console.info("Interrupted");
+    process.exit(0);
+  });
+
   await db.sequelize.sync({ force: true });
-  // await db.Account.create({ github_id: 55699197});
-  // await db.Account.create({ github_id: 2, access_token: 2 });
 
   const app = express();
   app.use(cors());
@@ -27,7 +26,7 @@ const main = async () => {
    */
   app.get("/login", login);
   app.get("/login/callback", loginCallback);
-  app.get("/posts", getPosts);
+  app.get("/posts",authenticate, getPosts);
 
   app.get("/", (req, res) => {
     res.send("<h1>hello</h1>");
