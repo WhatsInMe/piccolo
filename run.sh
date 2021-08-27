@@ -17,6 +17,7 @@ prod() {
                 -e GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET} \
                 -e NODE_ENV=${NODE_ENV} \
                 -e POSTGRES_DB=${POSTGRES_DB} \
+                -e POSTGRES_DIALECT=${POSTGRES_DIALECT} \
                 -e POSTGRES_HOST=${POSTGRES_HOST} \
                 -e POSTGRES_PASS=${POSTGRES_PASS} \
                 -e POSTGRES_PORT=${POSTGRES_PORT} \
