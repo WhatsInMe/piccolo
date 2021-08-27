@@ -35,10 +35,11 @@ Account.hasMany(Post, {
 
 const database = {};
 
-database.Sequelize = Sequelize;
-database.sequelize = sequelize;
 database.Account = Account;
+database.Account_item = Account_item;
 database.Item = Item;
 database.Post = Post;
+database.Sequelize = Sequelize;
+database.sequelize = sequelize;
 
 module.exports = database;
