@@ -16,6 +16,18 @@ const sequelize = new Sequelize(__DB_NAME__, __DB_USER__, __DB_PASS__, {
 
 const Account = require("./models/account")(sequelize, Sequelize);
 const Item = require("./models/item")(sequelize, Sequelize);
+const Account_item = sequelize.define(
+  "account_item",
+  {
+    quantity: Sequelize.INTEGER,
+  },
+  {
+    timestamps: false,
+  }
+);
+Account.belongsToMany(Item, { through: Account_item });
+Item.belongsToMany(Account, { through: Account_item });
+
 const Post = require("./models/post")(sequelize, Sequelize);
 Account.hasMany(Post, {
   foreignKey: "account_id",
