@@ -1,12 +1,14 @@
 module.exports = (sequelize, Sequelize) => {
-  const Account = sequelize.define("account", {
-    github_id: {
-      type: Sequelize.INTEGER,
+  const Account = sequelize.define(
+    "account",
+    {
+      github_id: Sequelize.INTEGER,
+      access_token: Sequelize.STRING,
     },
-    access_token: {
-      type: Sequelize.STRING,
-    },
-  });
+    {
+      timestamps: false,
+    }
+  );
 
   return Account;
 };

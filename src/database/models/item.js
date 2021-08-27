@@ -1,12 +1,14 @@
 module.exports = (sequelize, Sequelize) => {
-  const Item = sequelize.define("item", {
-    name: {
-      type: Sequelize.STRING,
+  const Item = sequelize.define(
+    "item",
+    {
+      name: Sequelize.STRING,
+      description: Sequelize.STRING,
     },
-    description: {
-      type: Sequelize.STRING,
-    },
-  });
+    {
+      timestamps: false,
+    }
+  );
 
   return Item;
 };
