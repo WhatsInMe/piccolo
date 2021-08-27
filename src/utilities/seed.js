@@ -38,6 +38,14 @@ const seed = async () => {
     text: "test text",
     account_id: 2,
   });
+  await db.Item.create({
+    name: "milk",
+    description: "meiji brand",
+  });
+  await db.Item.create({
+    name: "banana",
+    description: "a yummy banana lol",
+  });
   console.log("seeding complete")
 };
 
