@@ -1,9 +1,8 @@
 const db = require("../database");
 
 const authenticate = (req, res, next) => {
-  const accessToken = req.headers["authorization"]
-    ? req.headers["authorization"].split(" ")[1]
-    : undefined;
+  const authHeader = req.headers["authorization"];
+  const accessToken = authHeader ? authHeader.split(" ")[1] : undefined;
   if (!accessToken) {
     console.log("access denied");
     res.sendStatus(403);
