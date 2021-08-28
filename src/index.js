@@ -33,25 +33,12 @@ const main = async () => {
   /**
    * debug
    */
-  await db.Item.findOne({
-    where: {
-      id: 1,
-    },
-  }).then((item) => {
-    console.log(
-      "================================================================================"
-    );
-    console.log(JSON.stringify(item));
-  });
-
   await db.Account.findOne({
     where: {
       id: 1,
     },
+    include: db.Item,
   }).then((account) => {
-    console.log(
-      "================================================================================"
-    );
     console.log(JSON.stringify(account));
   });
 
