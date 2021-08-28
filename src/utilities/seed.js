@@ -86,31 +86,31 @@ const seed = async () => {
   // | (_| | (_| (_| (_) | |_| | | | | |_  | | ||  __/ | | | | \__ \
   //  \__,_|\___\___\___/ \__,_|_| |_|\__| |_|\__\___|_| |_| |_|___/
 
-  // await db.Account_item.create({
-  //   quantity: 1,
-  //   accountId: 1,
-  //   itemId: 1,
-  // });
-  // await db.Account_item.create({
-  //   quantity: 1,
-  //   accountId: 1,
-  //   itemId: 2,
-  // });
-  // await db.Account_item.create({
-  //   quantity: 1,
-  //   accountId: 2,
-  //   itemId: 1,
-  // });
-  // await db.Account_item.create({
-  //   quantity: 1,
-  //   accountId: 2,
-  //   itemId: 2,
-  // });
-  // await db.Account_item.create({
-  //   quantity: 1,
-  //   accountId: 2,
-  //   itemId: 3,
-  // });
+  await db.Account_item.create({
+    quantity: 3,
+    account_id: 1,
+    item_id: 1,
+  });
+  await db.Account_item.create({
+    quantity: 4,
+    account_id: 1,
+    item_id: 2,
+  });
+  await db.Account_item.create({
+    quantity: 2,
+    account_id: 2,
+    item_id: 1,
+  });
+  await db.Account_item.create({
+    quantity: 5,
+    account_id: 2,
+    item_id: 4,
+  });
+  await db.Account_item.create({
+    quantity: 1,
+    account_id: 2,
+    item_id: 3,
+  });
 
   console.log("seeding complete");
 };
