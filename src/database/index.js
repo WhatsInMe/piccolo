@@ -7,19 +7,19 @@ const {
   __DB_USER__,
 } = require("../utilities/constants");
 
-const { Sequelize } = require("sequelize");
+const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = new Sequelize(__DB_NAME__, __DB_USER__, __DB_PASS__, {
   host: __DB_HOST__,
   port: __DB_PORT__,
   dialect: __DB_DIALECT__,
 });
 
-const Account = require("./models/account")(sequelize, Sequelize);
-const Item = require("./models/item")(sequelize, Sequelize);
+const Account = require("./models/account")(sequelize);
+const Item = require("./models/item")(sequelize);
 const Account_item = sequelize.define(
   "account_item",
   {
-    quantity: Sequelize.INTEGER,
+    quantity: DataTypes.INTEGER,
   },
   {
     timestamps: false,
@@ -28,7 +28,7 @@ const Account_item = sequelize.define(
 Account.belongsToMany(Item, { through: Account_item });
 Item.belongsToMany(Account, { through: Account_item });
 
-const Post = require("./models/post")(sequelize, Sequelize);
+const Post = require("./models/post")(sequelize);
 Account.hasMany(Post, {
   foreignKey: "account_id",
 });

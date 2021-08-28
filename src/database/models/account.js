@@ -1,9 +1,11 @@
-module.exports = (sequelize, Sequelize) => {
+const { DataTypes } = require("sequelize");
+
+module.exports = (sequelize) => {
   const Account = sequelize.define(
     "account",
     {
-      github_id: Sequelize.INTEGER,
-      access_token: Sequelize.STRING,
+      github_id: DataTypes.INTEGER,
+      access_token: DataTypes.STRING,
     },
     {
       timestamps: false,
