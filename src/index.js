@@ -19,11 +19,12 @@ process.on("SIGINT", () => {
 });
 
 const main = async () => {
-  //      _       _        _
-  //   __| | __ _| |_ __ _| |__   __ _ ___  ___
-  //  / _` |/ _` | __/ _` | '_ \ / _` / __|/ _ \
-  // | (_| | (_| | || (_| | |_) | (_| \__ \  __/
-  //  \__,_|\__,_|\__\__,_|_.__/ \__,_|___/\___|
+  //                            _ _
+  //  ___  ___  __ _ _   _  ___| (_)_______
+  // / __|/ _ \/ _` | | | |/ _ \ | |_  / _ \
+  // \__ \  __/ (_| | |_| |  __/ | |/ /  __/
+  // |___/\___|\__, |\__,_|\___|_|_/___\___|
+  //              |_|
 
   await db.sequelize.sync({ force: true }).then(async () => {
     console.log("migration complete");
@@ -42,11 +43,11 @@ const main = async () => {
     console.log(JSON.stringify(account));
   });
 
-  //                  _
-  //  _ __ ___  _   _| |_ ___  ___
-  // | '__/ _ \| | | | __/ _ \/ __|
-  // | | | (_) | |_| | ||  __/\__ \
-  // |_|  \___/ \__,_|\__\___||___/
+  //   _____  ___ __  _ __ ___  ___ ___
+  //  / _ \ \/ / '_ \| '__/ _ \/ __/ __|
+  // |  __/>  <| |_) | | |  __/\__ \__ \
+  //  \___/_/\_\ .__/|_|  \___||___/___/
+  //           |_|
 
   const app = express();
   app.use(cors());
@@ -56,8 +57,20 @@ const main = async () => {
   app.get("/login", login);
   app.get("/login/callback", loginCallback);
   app.get("/login/status", authenticate, loginStatus);
-  app.get("/posts", authenticate, getPosts);
 
+  const getAccount = (req, res) => {
+    db.Account.findOne({
+      where: {
+        id: req.account.id,
+      },
+      include: db.Item,
+    }).then((account) => {
+      res.json(account);
+    });
+  };
+  app.get("/account", authenticate, getAccount);
+
+  app.get("/posts", authenticate, getPosts);
   app.get("/", (req, res) => {
     res.send("<h1>hello</h1>");
   });
