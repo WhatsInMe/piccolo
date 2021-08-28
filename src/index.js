@@ -1,16 +1,15 @@
-const authenticate = require("./middleware/authenticate");
-const seed = require("./utilities/seed");
-const { __EXPRESS_PORT__ } = require("./utilities/constants");
-const { getPosts } = require("./controllers/post");
-const {
-  login,
-  loginCallback,
-  loginStatus,
-} = require("./controllers/login");
-
-const db = require("./database");
 const cors = require("cors");
 const express = require("express");
+
+const db = require("./database");
+const seed = require("./utilities/seed");
+
+const authenticate = require("./middleware/authenticate");
+const { __EXPRESS_PORT__ } = require("./utilities/constants");
+const { getAccount } = require("./controllers/account");
+const { getItems } = require("./controllers/item");
+const { getPosts } = require("./controllers/post");
+const { login, loginCallback, loginStatus } = require("./controllers/login");
 
 const process = require("process");
 process.on("SIGINT", () => {
@@ -54,33 +53,15 @@ const main = async () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
 
+  app.get("/account", authenticate, getAccount);
+  app.get("/items", getItems);
   app.get("/login", login);
   app.get("/login/callback", loginCallback);
   app.get("/login/status", authenticate, loginStatus);
 
-  const getAccount = (req, res) => {
-    db.Account.findOne({
-      where: {
-        id: req.account.id,
-      },
-      include: db.Item,
-    }).then((account) => {
-      res.json(account);
-    });
-  };
-  app.get("/account", authenticate, getAccount);
-
-  const getItems = (req, res) => {
-    db.Item.findAll().then((items) => {
-      // console.log(JSON.stringify(items));
-      res.json(items);
-    });
-  };
-  app.get("/items", getItems);
-
-  app.get("/posts", authenticate, getPosts);
+  // app.get("/posts", authenticate, getPosts);
   app.get("/", (req, res) => {
-    res.send("<h1>hello</h1>");
+    res.send("test");
   });
 
   app.listen(__EXPRESS_PORT__, () => {
