@@ -70,6 +70,14 @@ const main = async () => {
   };
   app.get("/account", authenticate, getAccount);
 
+  const getItems = (req, res) => {
+    db.Item.findAll().then((items) => {
+      // console.log(JSON.stringify(items));
+      res.json(items);
+    });
+  };
+  app.get("/items", getItems);
+
   app.get("/posts", authenticate, getPosts);
   app.get("/", (req, res) => {
     res.send("<h1>hello</h1>");
